@@ -1,0 +1,26 @@
+{
+  "name": "geniv/nette-comgate",
+  "description": "Comgate wrapper extension for Nette Framework",
+  "keywords": [
+    "nette",
+    "comgate",
+    "geniv"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Radek Fryšták",
+      "email": "geniv.radek@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "nette/nette": ">=2.4.0",
+    "renat-magadiev/comgate-client": "^1.0"
+  },
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  }
+}
