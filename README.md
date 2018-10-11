@@ -22,6 +22,10 @@ https://portal.comgate.cz/cs/propojeni-obchodu-detail/id/**XXmerchantIdXX**
 
 ***
 
+thanks for code review: @AdamSmid
+
+***
+
 example url for production:
 ---
 redirect url (GET redirect from Comgate):
@@ -93,14 +97,15 @@ status payment:
 ```php
 public function actionStatus()
 {
-    $request = $this->context->getByType(Request::class);
-    if ($request->isPost()) {
+    $this->getHttpResponse()->setContentType('application/javascript');
+    $request = $this->getHttpRequest();
+    if ($request->isMethod('POST')) {
         $transId = $request->getPost('transId');
         $status = $request->getPost('status');
         if ($transId && $status) {
             $item = $this->model->getByCheckoutId($transId);
             if ($item) {
-                if ($this->model->editItem((int) $item['id'], ['status' => $status, 'checkout_date%sql' => 'NOW()', 'active' => true])) {
+                if ($this->model->editItem((int) $item['id'], ['status' => $status, 'checkout_date%sql' => 'NOW()', 'active' => ($status == PaymentStatus::PAID)])) {
                     die('code=0&message=OK');
                 }
                 die('code=1&message=SAVE_ERROR');
