@@ -5,6 +5,8 @@ Comgate payment gateway
 
 inspired: https://github.com/renat-magadiev/comgate-client , https://github.com/LZaplata/Comgate
 
+comgate info pdf: https://www.comgate.cz/files/informacni-brozura-comgate-payments.pdf
+
 list test payment:
 https://portal.comgate.cz/cs/testovaci-platby
 
