@@ -5,6 +5,8 @@ Comgate payment gateway
 
 inspired: https://github.com/renat-magadiev/comgate-client , https://github.com/LZaplata/Comgate
 
+comgate info pdf: https://www.comgate.cz/files/informacni-brozura-comgate-payments.pdf
+
 list test payment:
 https://portal.comgate.cz/cs/testovaci-platby
 
@@ -81,15 +83,23 @@ public $comgate;
 
 create payment:
 ```php
-// process Comgate
-$payment = $this->comgate->createPayment($values['order_price'] * 100, $values['order_id'], $values['email'], $game['name']);
-$payment->setPrepareOnly(true);
+try {
+    // process Comgate
+    $payment = $this->comgate->createPayment($values['order_price'] * 100, $values['order_id'], $values['email'], $game['name']);
+    $payment->setPrepareOnly(true);
 
-$response = $this->comgate->sendResponse($payment);
-if ($response->isOk()) {
-    // edit checkout_id
-    $this->model->editItem($id, ['checkout_id' => $response->getTransId()]);
-    $this->redirectUrl($response->getRedirectUrl());
+    $response = $this->comgate->sendResponse($payment);
+    if ($response->isOk()) {
+        // edit checkout_id
+        $this->model->editItem($id, ['checkout_id' => $response->getTransId()]);
+        $this->redirectUrl($response->getRedirectUrl());
+    }
+} catch (\Comgate\Exception\InvalidArgumentException $e) {
+    Debugger::log($e);
+    $this->redirect('error');
+} catch (\Comgate\Exception\LabelTooLongException $e) {
+    Debugger::log($e);
+    $this->redirect('error');
 }
 ```
 
