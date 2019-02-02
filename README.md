@@ -116,15 +116,15 @@ public function actionStatus()
             $item = $this->model->getByCheckoutId($transId);
             if ($item) {
                 if ($this->model->editItem((int) $item['id'], ['status' => $status, 'checkout_date%sql' => 'NOW()', 'active' => ($status == PaymentStatus::PAID)])) {
-                    die('code=0&message=OK');
+                    $this->sendResponse(new ComgateResponse('code=0&message=OK'));
                 }
-                die('code=1&message=SAVE_ERROR');
+                $this->sendResponse(new ComgateResponse('code=1&message=SAVE_ERROR'));
             }
-            die('code=1&message=TRANS_ID_NOT_FOUND');
+            $this->sendResponse(new ComgateResponse('code=1&message=TRANS_ID_NOT_FOUND'));
         }
-        die('code=1&message=MISSING_PARAMETERS');
+        $this->sendResponse(new ComgateResponse('code=1&message=MISSING_PARAMETERS'));
     }
-    die('code=1&message=FAIL');
+    $this->sendResponse(new ComgateResponse('code=1&message=FAIL'));
 }
 ```
 
