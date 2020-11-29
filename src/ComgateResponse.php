@@ -39,7 +39,7 @@ class ComgateResponse implements \Nette\Application\IResponse
      * @param IResponse $httpResponse
      * @return void
      */
-    public function send(IRequest $httpRequest, IResponse $httpResponse)
+    public function send(IRequest $httpRequest, IResponse $httpResponse):void
     {
         $httpResponse->setContentType('text/plain', 'utf-8');
         $httpResponse->setCode(200);
