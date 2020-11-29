@@ -14,7 +14,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0.0",
+    "php": ">=7.2",
     "nette/nette": ">=2.4.0",
     "renat-magadiev/comgate-client": "^1.0"
   },
